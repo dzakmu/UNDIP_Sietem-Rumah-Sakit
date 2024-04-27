@@ -1,3 +1,10 @@
+type Error = variant { NotFound : record { msg : text } };
+type PatientRecord = record { id : nat64; name : text; complaint : text };
+type PatientRecordPayload = record { name : text; complaint : text };
+type Result = variant { Ok : PatientRecord; Err : Error };
 service : {
-    "greet": (text) -> (text) query;
+  add_patient_record : (PatientRecordPayload) -> (opt PatientRecord);
+  delete_patient_record : (nat64) -> (Result);
+  get_patient_record : (nat64) -> (Result) query;
+  update_patient_record : (nat64, PatientRecordPayload) -> (Result);
 }
